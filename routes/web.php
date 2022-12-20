@@ -24,6 +24,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/album', [App\Http\Controllers\AlbumController::class, 'index'])->name('album.index');
 Route::get('/album/create', [App\Http\Controllers\AlbumController::class, 'create'])->name('album.create');
 Route::post('/album/store', [App\Http\Controllers\AlbumController::class, 'store'])->name('album.store');
+Route::get('/album/view/{id}', [App\Http\Controllers\AlbumController::class, 'view'])->name('album.view');
+
 
 
 

@@ -35,7 +35,7 @@ class AlbumController extends Controller
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
 
-                    $btn = '<a href="javascript:void(0)" class="edit btn btn-info btn-sm" style="margin-right:5px">View</a>';
+                    $btn = '<a href=" '. route('album.view',['id'=>$row->id]) . '" class="edit btn btn-info btn-sm" style="margin-right:5px">View</a>';
                            $btn = $btn.'<a href="javascript:void(0)" class="edit btn btn-primary btn-sm" style="margin-right:5px">Edit</a>';
                            $btn = $btn.'<a href=" '. route('media.create',['id'=>$row->id]) . '"  class="edit btn btn-secondary btn-sm" style="margin-right:5px">Add Pictures</a>';
                            $btn = $btn.'<a href="javascript:void(0)" class="edit btn btn-danger btn-sm" style="margin-right:5px">Delete</a>';
@@ -67,5 +67,14 @@ class AlbumController extends Controller
             return redirect()->back()->with('success', 'your album created successfully');   
         }
     }
+
+
+    public function view(Request $request)
+    {
+        $album_id=$request->id;
+
+        return view('album.view',compact('album_id'));
+    }
+
    
 }

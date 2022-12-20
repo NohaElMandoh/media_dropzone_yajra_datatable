@@ -34,7 +34,8 @@ class MediaController extends Controller
     public function create(Request $request)
     {
         $album_id = $request->id;
-        $album = Album::find($album_id)->first();
+        $album = Album::find($album_id);
+    //    return $album;
         return view('media.create', compact('album_id', 'album'));
     }
 
@@ -48,7 +49,7 @@ class MediaController extends Controller
         $image->move(public_path('images'), $imageName);
 
         $imageUpload = new Picture();
-        $imageUpload->name = $name;
+        $imageUpload->name = $imageName;
         $imageUpload->album_id = $request->album_id;
         $imageUpload->save();
 
@@ -70,21 +71,18 @@ class MediaController extends Controller
     {
 
         $album_id = $request->id;
-        $album = Album::find($album_id)->first();
+        $album = Album::find($album_id);
         $images =  $album->pictures;
         $path = public_path() . '/images/';
-      $url=URL::to('/');
+        $url = URL::to('/');
         $output = '<div class="row">';
         foreach ($images as $image) {
             $output .= '
-      <div class="col-md-2" style="margin-bottom:16px;" align="center">
-                <img src="' . $url.'/images/'.$image->name . '" class="img-thumbnail" width="175" height="175" style="height:175px;" />
+      <div class="col-md-2" id="images_div" style="margin-bottom:16px;" align="center">
+                <img src="' . $url . '/images/' . $image->name . '" class="img-thumbnail" width="175" height="175" style="height:175px;" />
                 <button type="button" class="btn btn-link remove_image" id="' . $image->name . '">Remove</button>
             </div>
       ';
-
-      
-
         }
         $output .= '</div>';
         echo $output;
